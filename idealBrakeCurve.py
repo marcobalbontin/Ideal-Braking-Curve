@@ -3,7 +3,7 @@ import numpy as np
 from typing import Final
 
 #Author: Marco Balbontin-Ponce
-#Version: 0.0.3
+#Version: 0.0.4
 
 #Will generate the ideal braking curve based on values which are inputted.
 def generate_ideal_braking_curve():
@@ -33,3 +33,13 @@ def calcForceAtFront(friction_coeff, long_weight_transfer):
     front_slip_braking_force = (friction_coeff*((WEIGHT * ACCEL_DUE_TO_GRAV * FRONT_AXLE_WEIGHT_DIST) + long_weight_transfer))
 
     return front_slip_braking_force
+
+#Returns the value of rear braking force (N) at the instance tyres begin to slip.
+def calcForceAtRear(friction_coeff, long_weight_transfer):
+    WEIGHT: Final = 280 #Kg
+    ACCEL_DUE_TO_GRAV: Final = 9.81 #ms^-2
+    FRONT_AXLE_WEIGHT_DIST: Final = 0.5
+
+    rear_slip_braking_force = (friction_coeff*((WEIGHT * ACCEL_DUE_TO_GRAV)*(1-FRONT_AXLE_WEIGHT_DIST) - long_weight_transfer))
+
+    return rear_slip_braking_force
