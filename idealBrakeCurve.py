@@ -3,7 +3,7 @@ import numpy as np
 from typing import Final
 
 #Author: Marco Balbontin-Ponce
-#Version: 0.0.2
+#Version: 0.0.3
 
 #Will generate the ideal braking curve based on values which are inputted.
 def generate_ideal_braking_curve():
@@ -24,7 +24,7 @@ def calc_long_weight_transfer(friction_coeff):
 
     return long_weight_transfer
 
-#Returns an array containing all Front Brake Force values to be plotted.
+#Returns the value of front braking force (N) at the instance tyres begin to slip.
 def calcForceAtFront(friction_coeff, long_weight_transfer):
     WEIGHT: Final = 280 #Kg
     ACCEL_DUE_TO_GRAV: Final = 9.81 #ms^-2
