@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.widgets import Button
 from typing import Final
 
 #Author: Marco Balbontin-Ponce
-#Version: 0.0.5
+#Version: 0.0.6
 
 #Will generate the ideal braking curve based on values which are inputted.
 #Get an array with coefficients from 0-1 with a step of 0.1. Use this array to generate another array of long_weight_transfer
@@ -11,12 +12,9 @@ from typing import Final
 def generate_ideal_braking_curve():
     #create array with coefficient of friction values and then calculate Front & Rear force, generating 2 more arrays to be plotted.
     friction_coeff_arr = np.array([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1])
-    long_weight_calculation_array = np.copy(friction_coeff_arr)
-    long_weight_transfer_arr1 = calc_long_weight_transfer(long_weight_calculation_array)
-    long_weight_transfer_arr2 = np.copy(long_weight_transfer_arr1)
-    front_force_arr = calcForceAtFront(friction_coeff_arr, long_weight_transfer_arr1) 
-    rear_force_arr = calcForceAtRear(friction_coeff_arr, long_weight_transfer_arr2)
-    #plt.plot(front_force_arr, RearForceArray, 'r--')
+    long_weight_transfer_arr = calc_long_weight_transfer(friction_coeff_arr)
+    front_force_arr = calcForceAtFront(friction_coeff_arr, long_weight_transfer_arr) 
+    rear_force_arr = calcForceAtRear(friction_coeff_arr, long_weight_transfer_arr)
     #plt.plot(x, y)
     plt.title('Ideal Brake Curve')
     plt.plot(front_force_arr, rear_force_arr)
