@@ -4,7 +4,7 @@ from matplotlib.widgets import Button
 from typing import Final
 
 #Author: Marco Balbontin-Ponce
-#Version: 0.0.9
+#Version: 0.1.0
 
 def generate_ideal_braking_curve():
     '''Generates a plot of the ideal braking curve based on vehicle values assigned to the variables.
@@ -32,9 +32,13 @@ def generate_ideal_braking_curve():
     plt.title('Ideal Brake Curve')
     #plt.plot(x, y)
     plt.plot(front_force_arr, rear_force_arr, 'bo', linestyle = 'solid')
+
+    for i in range(friction_coeff_arr.size):
+        annotation = f'μ = {friction_coeff_arr[i]}'
+        plt.annotate(annotation, xy=(front_force_arr[i], rear_force_arr[i]), xytext=(18,-8), textcoords='offset points', arrowprops={"arrowstyle":"->"})
+
     plt.xlabel('Front Axle Ideal Braking Force (N)')
     plt.ylabel('Rear Axle Ideal Braking Force (N)')
-
     plt.show()
 
     return
