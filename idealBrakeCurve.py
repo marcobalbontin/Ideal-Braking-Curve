@@ -4,7 +4,7 @@ from matplotlib.widgets import Button
 from typing import Final
 
 #Author: Marco Balbontin-Ponce
-#Version: 0.1.0
+#Version: 0.1.1
 
 def generate_ideal_braking_curve():
     '''Generates a plot of the ideal braking curve based on vehicle values assigned to the variables.
@@ -28,15 +28,17 @@ def generate_ideal_braking_curve():
     front_force_arr = calcForceAtFront(friction_coeff_arr, long_weight_transfer_arr, WEIGHT, ACCEL_DUE_TO_GRAV, FRONT_AXLE_WEIGHT_DIST) 
     rear_force_arr = calcForceAtRear(friction_coeff_arr, long_weight_transfer_arr, WEIGHT, ACCEL_DUE_TO_GRAV, FRONT_AXLE_WEIGHT_DIST)
     
-    #declare title of graph and plot the numpy arrays, x = front_force_arr & y = rear_force_arr, then add axis lables and show the graph.
+    #declare title of graph and plot the numpy arrays, x = front_force_arr & y = rear_force_arr.
     plt.title('Ideal Brake Curve')
     #plt.plot(x, y)
     plt.plot(front_force_arr, rear_force_arr, 'bo', linestyle = 'solid')
 
+    #add tyre friction coefficient annotations to the graph, with arrows pointing from points to related friction coefficient values.
     for i in range(friction_coeff_arr.size):
         annotation = f'μ = {friction_coeff_arr[i]}'
-        plt.annotate(annotation, xy=(front_force_arr[i], rear_force_arr[i]), xytext=(18,-8), textcoords='offset points', arrowprops={"arrowstyle":"->"})
+        plt.annotate(annotation, xy=(front_force_arr[i], rear_force_arr[i]), xytext=(18,-8), textcoords='offset points', arrowprops={"arrowstyle":"<-"})
 
+    #add axis labels and show the graph.
     plt.xlabel('Front Axle Ideal Braking Force (N)')
     plt.ylabel('Rear Axle Ideal Braking Force (N)')
     plt.show()
