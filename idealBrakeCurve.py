@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.widgets import Button
 from typing import Final
 
 #Author: Marco Balbontin-Ponce
