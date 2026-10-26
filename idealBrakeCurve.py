@@ -3,7 +3,7 @@ import numpy as np
 from typing import Final
 
 #Author: Marco Balbontin-Ponce
-#Version: 0.1.1
+#Version: 0.1.2
 
 def generate_ideal_braking_curve():
     '''Generates a plot of the ideal braking curve based on vehicle values assigned to the variables.
@@ -27,15 +27,28 @@ def generate_ideal_braking_curve():
     front_force_arr = calcForceAtFront(friction_coeff_arr, long_weight_transfer_arr, WEIGHT, ACCEL_DUE_TO_GRAV, FRONT_AXLE_WEIGHT_DIST) 
     rear_force_arr = calcForceAtRear(friction_coeff_arr, long_weight_transfer_arr, WEIGHT, ACCEL_DUE_TO_GRAV, FRONT_AXLE_WEIGHT_DIST)
     
+    print('long weight transfer = ', long_weight_transfer_arr)
+    print('front force = ', front_force_arr)
+    print('rear force = ', rear_force_arr)
+
     #declare title of graph and plot the numpy arrays, x = front_force_arr & y = rear_force_arr.
     plt.title('Ideal Brake Curve')
     #plt.plot(x, y)
     plt.plot(front_force_arr, rear_force_arr, 'bo', linestyle = 'solid')
+    #adjust the maximum and minimum values shown on the plot for the x & y axes
+    plt.ylim(0, rear_force_arr.max()+100)
+    plt.xlim(0, front_force_arr.max()+100)
 
     #add tyre friction coefficient annotations to the graph, with arrows pointing from points to related friction coefficient values.
+    #for the first value the position of the first annotation will be adjusted so it is visible above the x axis.
+    #all other annotations will follow the same positions relative to the points they're associated with.
     for i in range(friction_coeff_arr.size):
         annotation = f'μ = {friction_coeff_arr[i]}'
-        plt.annotate(annotation, xy=(front_force_arr[i], rear_force_arr[i]), xytext=(18,-8), textcoords='offset points', arrowprops={"arrowstyle":"<-"})
+        if (i == 0):
+            xytext_tuple = (22,6)
+        else:
+            xytext_tuple = (20,-8)
+        plt.annotate(annotation, xy=(front_force_arr[i], rear_force_arr[i]), xytext=xytext_tuple, textcoords='offset points', arrowprops={"arrowstyle":"<-"})
 
     #add axis labels and show the graph.
     plt.xlabel('Front Axle Ideal Braking Force (N)')
