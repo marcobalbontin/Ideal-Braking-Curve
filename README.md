@@ -1,6 +1,5 @@
 # Ideal-Braking-Curve
 Instructions for running source code (on Mac):
-Notes: terminal commands = blue
 1)	First, download the folder titled idealbrakecurve attached, which contains the source code.
 
 2)	Open/Download VSCode (for MacOS) which is the IDE used to run the code:
