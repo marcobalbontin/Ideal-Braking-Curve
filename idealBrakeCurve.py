@@ -24,8 +24,8 @@ def generate_ideal_braking_curve():
     #calculates the longitudinal weight transfer due to acceleration, returning a new numpy array containing all values:
     long_weight_transfer_arr = calc_long_weight_transfer(friction_coeff_arr, ACCEL_DUE_TO_GRAV, WEIGHT, CENTRE_OF_GRAV_HEIGHT, WHEELBASE)
     #calculates the front & rear braking forces at which tyres begin to slip, returning a new numpy array for each containing all values:
-    front_force_arr = calcForceAtFront(friction_coeff_arr, long_weight_transfer_arr, WEIGHT, ACCEL_DUE_TO_GRAV, FRONT_AXLE_WEIGHT_DIST) 
-    rear_force_arr = calcForceAtRear(friction_coeff_arr, long_weight_transfer_arr, WEIGHT, ACCEL_DUE_TO_GRAV, FRONT_AXLE_WEIGHT_DIST)
+    front_force_arr = calc_force_at_front(friction_coeff_arr, long_weight_transfer_arr, WEIGHT, ACCEL_DUE_TO_GRAV, FRONT_AXLE_WEIGHT_DIST) 
+    rear_force_arr = calc_force_at_rear(friction_coeff_arr, long_weight_transfer_arr, WEIGHT, ACCEL_DUE_TO_GRAV, FRONT_AXLE_WEIGHT_DIST)
     
     print('long weight transfer = ', long_weight_transfer_arr)
     print('front force = ', front_force_arr)
@@ -68,7 +68,7 @@ def calc_long_weight_transfer(friction_coeff_arr, accel_due_to_grav, weight, cen
 
     return long_weight_transfer_arr
 
-def calcForceAtFront(friction_coeff_arr, long_weight_transfer_arr, weight, accel_due_to_grav, front_axle_weight_dist):
+def calc_force_at_front(friction_coeff_arr, long_weight_transfer_arr, weight, accel_due_to_grav, front_axle_weight_dist):
     '''Returns a numpy array containing all values of front braking force (N) at the instance tyres begin to slip.'''
 
     #front slip braking force calculation:
@@ -76,7 +76,7 @@ def calcForceAtFront(friction_coeff_arr, long_weight_transfer_arr, weight, accel
 
     return front_slip_braking_force_arr
 
-def calcForceAtRear(friction_coeff_arr, long_weight_transfer_arr, weight, accel_due_to_grav, front_axle_weight_dist):
+def calc_force_at_rear(friction_coeff_arr, long_weight_transfer_arr, weight, accel_due_to_grav, front_axle_weight_dist):
     '''Returns a numpy array containing all values of rear braking force (N) at the instance tyres begin to slip.'''
     #rear slip braking force calculation:
     rear_slip_braking_force_arr = (friction_coeff_arr*((weight * accel_due_to_grav)*(1-front_axle_weight_dist) - long_weight_transfer_arr))
